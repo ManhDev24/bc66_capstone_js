@@ -1277,6 +1277,7 @@
           <div class="text-right">
             <button
               type="button"
+              onclick="resetForm()"
               class="btn btn-banner"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
@@ -1319,6 +1320,23 @@
               <!-- Modal body -->
               <div class="modal-body">
                 <form role="form" id="formPhone">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                          ><i class="fa-regular fa-id-card"></i
+                        ></span>
+                      </div>
+                      <input
+                        type="text"
+                        name="ID"
+                        id="ID"
+                        class="form-control input-sm"
+                        placeholder="ID"
+                      />
+                    </div>
+                    <span class="sp-thongbao" id="tbname"></span>
+                  </div>
                   <div class="form-group">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -1456,7 +1474,7 @@
                       <select class="form-control" name="chucvu" id="type">
                         <option selected="" disabled="">Select brand</option>
                         <option>Apple</option>
-                        <option>Samsung</option>
+                        <option>Android</option>
                       </select>
                     </div>
 
@@ -1475,7 +1493,12 @@
                 >
                   Add Phone
                 </button>
-                <button id="btnUpdate" type="button" class="btn">
+                <button
+                  onclick="updateProduct()"
+                  id="btnUpdate"
+                  type="button"
+                  class="btn"
+                >
                   Update Phone
                 </button>
                 <button

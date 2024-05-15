@@ -1,3 +1,4 @@
+import { product } from "../model/model.js";
 import { getDataForm, renderData, showMessage } from "./controller-admin.js";
 
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
@@ -43,9 +44,23 @@ window.deleteProduct = (id) => {
 
 window.createProduct = () => {
   let data = getDataForm();
-
+  console.log('data: ', data);
+  let { id, name, price, screen, backCamera, frontCamera, img, desc, type } =
+    data;
+  const newProduct = new product(
+    id,
+    name,
+    price,
+    screen,
+    backCamera,
+    frontCamera,
+    img,
+    desc,
+    type
+  );
+  console.log(newProduct);
   axios
-    .post(`${BASE_URL}${adminEndpoint}`, data)
+    .post(`${BASE_URL}${adminEndpoint}`, newProduct)
     .then((res) => {
       $("#exampleModal").modal("hide");
       showMessage("Thêm sản phẩm thành công");
@@ -60,8 +75,19 @@ window.editProduct = (id) => {
   axios
     .get(`${BASE_URL}${adminEndpoint}/${id}`)
     .then((res) => {
-      let { name, price, screen, backCamera, frontCamera, img, desc, type } =
-        res.data;
+      let {
+        id,
+        name,
+        price,
+        screen,
+        backCamera,
+        frontCamera,
+        img,
+        desc,
+        type,
+      } = res.data;
+      document.getElementById("ID").value = id;
+      document.getElementById("ID").readOnly = true;
       document.getElementById("name").value = name;
       document.getElementById("price").value = price;
       document.getElementById("screen").value = screen;
@@ -73,4 +99,17 @@ window.editProduct = (id) => {
       $("#exampleModal").modal("show");
     })
     .catch((err) => {});
+};
+window.updateProduct = () => {
+  let data = getDataForm();
+  axios
+    .put(`${BASE_URL}${adminEndpoint}/${data.id}`, data)
+    .then((res) => {
+      $("#exampleModal").modal("hide");
+      showMessage("Cập nhật sản phẩm thành công");
+      fetchData();
+    })
+    .catch((err) => {
+      showMessage("Cập nhật sản phẩm thất bại", false);
+    });
 };
