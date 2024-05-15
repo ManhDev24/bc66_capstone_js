@@ -6,7 +6,7 @@ export let renderData = (data) => {
         <tr>
         <td>${id}</td>
         <td>${name}</td>
-        <td>${price}</td>
+        <td>${price}$</td>
         <td>${img}</td>
         <td>${desc}</td>
         <td >
@@ -25,6 +25,7 @@ export let renderData = (data) => {
 };
 
 export let getDataForm = () => {
+  let id = document.getElementById("ID").value;
   let name = document.getElementById("name").value;
   let price = document.getElementById("price").value;
   let screen = document.getElementById("screen").value;
@@ -35,6 +36,7 @@ export let getDataForm = () => {
   let type = document.getElementById("type").value;
 
   return {
+    id,
     name,
     price,
     screen,
@@ -64,3 +66,9 @@ export let showMessage = (message, check = true) => {
     onClick: function () {}, // Callback after click
   }).showToast();
 };
+
+window.resetForm = () => {
+  document.getElementById("formPhone").reset();
+  document.getElementById("ID").readOnly = false;
+};
+
