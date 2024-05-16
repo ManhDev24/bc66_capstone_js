@@ -1,6 +1,6 @@
 import { product } from "../model/model.js";
 import { getDataForm, renderData, showMessage } from "./controller-admin.js";
-
+let globalId = "";
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
 
@@ -44,11 +44,8 @@ window.deleteProduct = (id) => {
 
 window.createProduct = () => {
   let data = getDataForm();
-  console.log('data: ', data);
-  let { id, name, price, screen, backCamera, frontCamera, img, desc, type } =
-    data;
+  let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
   const newProduct = new product(
-    id,
     name,
     price,
     screen,
@@ -58,7 +55,6 @@ window.createProduct = () => {
     desc,
     type
   );
-  console.log(newProduct);
   axios
     .post(`${BASE_URL}${adminEndpoint}`, newProduct)
     .then((res) => {
@@ -72,22 +68,12 @@ window.createProduct = () => {
 };
 
 window.editProduct = (id) => {
+  globalId = id;
   axios
     .get(`${BASE_URL}${adminEndpoint}/${id}`)
     .then((res) => {
-      let {
-        id,
-        name,
-        price,
-        screen,
-        backCamera,
-        frontCamera,
-        img,
-        desc,
-        type,
-      } = res.data;
-      document.getElementById("ID").value = id;
-      document.getElementById("ID").readOnly = true;
+      let { name, price, screen, backCamera, frontCamera, img, desc, type } =
+        res.data;
       document.getElementById("name").value = name;
       document.getElementById("price").value = price;
       document.getElementById("screen").value = screen;
@@ -103,7 +89,7 @@ window.editProduct = (id) => {
 window.updateProduct = () => {
   let data = getDataForm();
   axios
-    .put(`${BASE_URL}${adminEndpoint}/${data.id}`, data)
+    .put(`${BASE_URL}${adminEndpoint}/${globalId}`, data)
     .then((res) => {
       $("#exampleModal").modal("hide");
       showMessage("Cập nhật sản phẩm thành công");
