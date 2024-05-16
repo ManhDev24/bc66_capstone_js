@@ -68,3 +68,16 @@ export let showMessage = (message, check = true) => {
 window.resetForm = () => {
   document.getElementById("formPhone").reset();
 };
+
+export let addPhoneForm = () => {
+  const addPhoneBtn = document.getElementById("addPhoneForm");
+  addPhoneBtn.addEventListener("click", () => {
+    console.log("hi");
+
+    resetForm();
+
+    document.getElementById("btnUpdate").style.display = "none";
+
+    document.getElementById("btnAddPhone").style.display = "inline-block";
+  });
+};

@@ -1,5 +1,11 @@
 import { product } from "../model/model.js";
-import { getDataForm, renderData, showMessage } from "./controller-admin.js";
+import {
+  addPhoneForm,
+  getDataForm,
+  renderData,
+  showMessage,
+} from "./controller-admin.js";
+import { Validate } from "./validate.js";
 let globalId = "";
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
@@ -43,6 +49,7 @@ window.deleteProduct = (id) => {
 };
 
 window.createProduct = () => {
+  addPhoneForm();
   let data = getDataForm();
   let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
   const newProduct = new product(
