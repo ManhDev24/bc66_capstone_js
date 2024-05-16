@@ -1,16 +1,5 @@
 export class product {
-  constructor(
-    id,
-    name,
-    price,
-    screen,
-    backCamera,
-    frontCamera,
-    img,
-    desc,
-    type
-  ) {
-    this.id = id;
+  constructor(name, price, screen, backCamera, frontCamera, img, desc, type) {
     this.name = name;
     this.price = price;
     this.screen = screen;
