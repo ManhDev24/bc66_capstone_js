@@ -1,34 +1,63 @@
-import { product } from "../model/model.js";
+import { Validate } from "./validate.js";
+import { productService } from "../services/phoneServices.js";
 import {
-  getDataForm,
   renderData,
   resetForm,
+  getDataForm,
   showMessage,
+  showDataForm,
 } from "./controller-admin.js";
-import { globalName } from "./controller-admin.js";
-import {
-  isEmpty,
-  isExitPhone,
-  isExitPhoneUpdate,
-  isNumber,
-  isRightBand,
-} from "./validate.js";
-let globalId = "";
-export const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
-export const adminEndpoint = "admin";
+const validate = new Validate();
+let globalId = 0;
+
 let fetchData = () => {
-  axios
-    .get(BASE_URL + adminEndpoint)
+  productService
+    .getList()
     .then((res) => {
-      renderData(res.data);
+      renderData(res);
     })
     .catch((err) => {
       console.log(err);
     });
 };
-fetchData();
 
-window.deleteProduct = (id) => {
+fetchData();
+document.getElementById("addPhoneForm").addEventListener("click", () => {
+  resetForm();
+  let elements = document.querySelectorAll(".sp-thongbao");
+  elements.forEach((item) => {
+    item.textContent = "";
+  });
+});
+
+window.createPhone = () => {
+  productService
+    .getList()
+    .then((res) => {
+      if (!validate.isValid(res)) {
+        return;
+      }
+      let data = getDataForm();
+      $("#exampleModal").modal("hide");
+
+      productService
+        .create(data)
+        .then((res) => {
+          fetchData();
+          showMessage("Them thanh cong");
+        })
+        .catch((err) => {
+          console.log(err);
+          showMessage("Them that bai", false);
+        });
+    })
+    .catch((err) => {
+      console.log("err: ", err);
+      showMessage("fetch data that bai");
+    });
+};
+
+window.deletePhone = (id) => {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -39,127 +68,63 @@ window.deleteProduct = (id) => {
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
     if (result.isConfirmed) {
-      axios.delete(`${BASE_URL}${adminEndpoint}/${id}`).then((res) => {
-        fetchData();
-      });
+      productService
+        .delete(id)
+        .then((res) => {
+          fetchData();
+          showMessage("Xoa thanh cong");
+        })
+        .catch((err) => {
+          showMessage("Xoa that bai");
+        });
       Swal.fire({
         title: "Deleted!",
         text: "Your file has been deleted.",
         icon: "success",
       });
-      return true;
-    } else {
-      return false;
     }
   });
 };
-document.getElementById("addPhoneForm").onclick = () => {
-  resetForm();
-  document.getElementById("btnUpdate").style.display = "none";
-  document.getElementById("btnAddPhone").style.display = "inline-block";
-};
-window.createProduct = () => {
-  let data = getDataForm();
-  let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
-  const newProduct = new product(
-    name,
-    price,
-    screen,
-    backCamera,
-    frontCamera,
-    img,
-    desc,
-    type
-  );
-  let phoneName =
-    isEmpty("#tbName", name) && isExitPhone("#tbName", globalName, name);
-  let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
-  let phoneScreen = isEmpty("#tbScreen", screen);
-  let phoneBackCam = isEmpty("#tbBackCam", backCamera);
-  let phoneFrontCam = isEmpty("#tbFrontCam", frontCamera);
-  let phoneImg = isEmpty("#tbImg", img);
-  let phoneDesc = isEmpty("#tbDesc", desc);
-  let phoneBrand = isRightBand("#tbtype", type);
-  let check =
-    phoneName &&
-    phoneNumber &&
-    phoneScreen &&
-    phoneBackCam &&
-    phoneFrontCam &&
-    phoneImg &&
-    phoneDesc &&
-    phoneBrand;
-
-  if (!check) return;
-  axios
-    .post(`${BASE_URL}${adminEndpoint}`, newProduct)
-    .then((res) => {
-      $("#exampleModal").modal("hide");
-      showMessage("Thêm sản phẩm thành công");
-      fetchData();
-    })
-    .catch((err) => {
-      showMessage("Thêm sản phẩm thất bại", false);
-    });
-};
-
-window.editProduct = (id) => {
-  globalId = id;
-  document.getElementById("btnUpdate").style.display = "inline-block";
-  document.getElementById("btnAddPhone").style.display = "none";
+window.editPhone = (id) => {
   let elements = document.querySelectorAll(".sp-thongbao");
   elements.forEach((item) => {
     item.textContent = "";
   });
-  axios
-    .get(`${BASE_URL}${adminEndpoint}/${id}`)
+  globalId = id;
+  productService
+    .getDetail(id)
     .then((res) => {
-      let { name, price, screen, backCamera, frontCamera, img, desc, type } =
-        res.data;
-      document.getElementById("name").value = name;
-      document.getElementById("price").value = price;
-      document.getElementById("screen").value = screen;
-      document.getElementById("backCam").value = backCamera;
-      document.getElementById("frontCam").value = frontCamera;
-      document.getElementById("img").value = img;
-      document.getElementById("desc").value = desc;
-      document.getElementById("type").value = type;
+      showDataForm(res.data);
       $("#exampleModal").modal("show");
-    })
-    .catch((err) => {});
-};
-window.updateProduct = () => {
-  let data = getDataForm();
-  let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
-  let phoneName =
-    isEmpty("#tbName", name) && isExitPhoneUpdate("#tbName", globalName, name);
-
-  let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
-  let phoneScreen = isEmpty("#tbScreen", screen);
-  let phoneBackCam = isEmpty("#tbBackCam", backCamera);
-  let phoneFrontCam = isEmpty("#tbFrontCam", frontCamera);
-  let phoneImg = isEmpty("#tbImg", img);
-  let phoneDesc = isEmpty("#tbDesc", desc);
-  let phoneBrand = isRightBand("#tbtype", type);
-  let check =
-    phoneName &&
-    phoneNumber &&
-    phoneScreen &&
-    phoneBackCam &&
-    phoneFrontCam &&
-    phoneImg &&
-    phoneDesc &&
-    phoneBrand;
-
-  if (!check) return;
-  axios
-    .put(`${BASE_URL}${adminEndpoint}/${globalId}`, data)
-    .then((res) => {
-      $("#exampleModal").modal("hide");
-      showMessage("Cập nhật sản phẩm thành công");
-      fetchData();
+      document.getElementById("btnUpdate").style.display = "inline-block";
+      document.getElementById("btnAddPhone").style.display = "none";
     })
     .catch((err) => {
-      showMessage("Cập nhật sản phẩm thất bại", false);
+      showMessage("edit error", false);
+    });
+};
+
+window.phoneUpdate = () => {
+  productService
+    .getList()
+    .then((res) => {
+      if (!validate.isValid(res)) {
+        return;
+      }
+      let data = getDataForm();
+      productService
+        .update(globalId, data)
+        .then((res) => {
+          fetchData();
+          showMessage("update thanh cong");
+          $("#exampleModal").modal("hide");
+        })
+        .catch((err) => {
+          showMessage("update that bai", false);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      showMessage("fetch data that bai", false);
     });
 };
