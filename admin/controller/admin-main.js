@@ -6,7 +6,13 @@ import {
   showMessage,
 } from "./controller-admin.js";
 import { globalName } from "./controller-admin.js";
-import { isEmpty, isExitPhone, isNumber, isRightBand } from "./validate.js";
+import {
+  isEmpty,
+  isExitPhone,
+  isExitPhoneUpdate,
+  isNumber,
+  isRightBand,
+} from "./validate.js";
 let globalId = "";
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
@@ -99,6 +105,12 @@ window.createProduct = () => {
 
 window.editProduct = (id) => {
   globalId = id;
+  document.getElementById("btnUpdate").style.display = "inline-block";
+  document.getElementById("btnAddPhone").style.display = "none";
+  let elements = document.querySelectorAll(".sp-thongbao");
+  elements.forEach((item) => {
+    item.textContent = "";
+  });
   axios
     .get(`${BASE_URL}${adminEndpoint}/${id}`)
     .then((res) => {
@@ -118,6 +130,32 @@ window.editProduct = (id) => {
 };
 window.updateProduct = () => {
   let data = getDataForm();
+  let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
+  let phoneName =
+    isEmpty("#tbName", name) && isExitPhoneUpdate("#tbName", globalName, name);
+  console.log(
+    "isExitPhoneUpdate: ",
+    isExitPhoneUpdate("#tbName", globalName, name)
+  );
+
+  let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
+  let phoneScreen = isEmpty("#tbScreen", screen);
+  let phoneBackCam = isEmpty("#tbBackCam", backCamera);
+  let phoneFrontCam = isEmpty("#tbFrontCam", frontCamera);
+  let phoneImg = isEmpty("#tbImg", img);
+  let phoneDesc = isEmpty("#tbDesc", desc);
+  let phoneBrand = isRightBand("#tbtype", type);
+  let check =
+    phoneName &&
+    phoneNumber &&
+    phoneScreen &&
+    phoneBackCam &&
+    phoneFrontCam &&
+    phoneImg &&
+    phoneDesc &&
+    phoneBrand;
+
+  if (!check) return;
   axios
     .put(`${BASE_URL}${adminEndpoint}/${globalId}`, data)
     .then((res) => {
