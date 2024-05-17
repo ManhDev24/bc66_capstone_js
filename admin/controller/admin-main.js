@@ -14,6 +14,7 @@ import {
   isRightBand,
 } from "./validate.js";
 let globalId = "";
+let globalObject = [];
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
 let fetchData = () => {
@@ -27,7 +28,7 @@ let fetchData = () => {
     });
 };
 fetchData();
-console.log("globalName: ", globalName);
+
 window.deleteProduct = (id) => {
   Swal.fire({
     title: "Are you sure?",
@@ -133,10 +134,6 @@ window.updateProduct = () => {
   let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
   let phoneName =
     isEmpty("#tbName", name) && isExitPhoneUpdate("#tbName", globalName, name);
-  console.log(
-    "isExitPhoneUpdate: ",
-    isExitPhoneUpdate("#tbName", globalName, name)
-  );
 
   let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
   let phoneScreen = isEmpty("#tbScreen", screen);
@@ -167,3 +164,4 @@ window.updateProduct = () => {
       showMessage("Cập nhật sản phẩm thất bại", false);
     });
 };
+export {globalObject}
