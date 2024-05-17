@@ -1,5 +1,5 @@
-import { BASE_URL, adminEndpoint } from "./admin-main.js";
-let globalName = [];
+import { productService } from "../services/phoneServices.js";
+
 export let renderData = (data) => {
   let ContentHtml = "";
   data.reverse().forEach((item) => {
@@ -13,16 +13,15 @@ export let renderData = (data) => {
         <td>${desc}</td>
         <td >
         <div class="d-flex" >
-        <button onclick="deleteProduct(${id})" class="btn btn-danger me-2 ">Xóa
+        <button onclick="deletePhone(${id})" class="btn btn-danger me-2 ">Xóa
         </button>
-        <button onclick="editProduct(${id})" class="btn btn-warning ">Sửa
+        <button onclick="editPhone(${id})" class="btn btn-warning ">Sửa
         </button>
         </div>
         </td>
         </tr>
         `;
     ContentHtml += trString;
-    globalName.push(name);
   });
   document.getElementById("tablePhone").innerHTML = ContentHtml;
 };
@@ -70,6 +69,20 @@ export let showMessage = (message, check = true) => {
 
 export let resetForm = () => {
   document.getElementById("formPhone").reset();
+  document.getElementById("btnUpdate").style.display = "none";
+  document.getElementById("btnAddPhone").style.display = "inline-block";
+};
+
+export let showDataForm = (data) => {
+  let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
+  document.getElementById("name").value = name;
+  document.getElementById("price").value = price;
+  document.getElementById("screen").value = screen;
+  document.getElementById("backCam").value = backCamera;
+  document.getElementById("frontCam").value = frontCamera;
+  document.getElementById("img").value = img;
+  document.getElementById("desc").value = desc;
+  document.getElementById("type").value = type;
 };
 
 window.searchBar = () => {
@@ -82,4 +95,54 @@ window.searchBar = () => {
   });
 };
 
-export { globalName };
+window.searchPhone = () => {
+  productService
+    .getList()
+    .then((res) => {
+      let value = document.querySelector("#searchName").value.toLowerCase();
+      let searchValue = res.filter((item) => {
+        return item.name.toLowerCase().includes(value);
+      });
+      renderData(searchValue);
+    })
+    .catch((err) => {
+      console.log(err);
+      showMessage("tim kiem that bai", false);
+    });
+};
+window.sortPrice = (order) => {
+  if (order == "asc") {
+    sortMinPrice();
+  } else if (order == "desc") {
+    sortMaxPrice();
+  } else {
+  }
+};
+let sortMinPrice = () => {
+  productService
+    .getList()
+    .then((res) => {
+      let searchValue = res.sort((a, b) => {
+        return a.price - b.price;
+      });
+      renderData(searchValue);
+    })
+    .catch((err) => {
+      console.log(err);
+      showMessage("sap xep that bai", false);
+    });
+};
+let sortMaxPrice = () => {
+  productService
+    .getList()
+    .then((res) => {
+      let searchValue = res.sort((a, b) => {
+        return b.price - a.price;
+      });
+      renderData(searchValue);
+    })
+    .catch((err) => {
+      console.log(err);
+      showMessage("sap xep that bai", false);
+    });
+};

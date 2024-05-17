@@ -1273,7 +1273,14 @@
     <div class="container py-5" id="content-wrap">
       <main role="main" class="mt-5">
         <div class="d-flex justify-content-between mb-2 py-3 px-2 phoneBanner">
-          <h3 class="text-light">Phone Management</h3>
+          <div class="text-mid">
+            <h3 class="text-light">Phone Management</h3>
+            <select onchange="sortPrice(this.value)">
+              <option value="" selected>Giá</option>
+              <option value="asc">Tăng dần</option>
+              <option value="desc">Giảm dần</option>
+            </select>
+          </div>
           <div class="text-right">
             <button
               type="button"
@@ -1294,10 +1301,14 @@
                 class="form-control"
                 placeholder="Loại nhân viên"
                 id="searchName"
-                oninput="searchBar()"
+                oninput="searchPhone()"
               />
-              <div style="cursor: pointer" class="input-group-prepend">
-                <span onclick="searchBar()" class="input-group-text" id="timSp"
+              <div
+                onclick="searchPhone()"
+                style="cursor: pointer"
+                class="input-group-prepend"
+              >
+                <span class="input-group-text" id="timSp"
                   ><i class="fa fa-search"></i
                 ></span>
               </div>
@@ -1485,7 +1496,7 @@
               <!-- Modal footer -->
               <div class="modal-footer" id="modal-footer">
                 <button
-                  onclick="createProduct()"
+                  onclick="createPhone()"
                   type="button"
                   class="btn"
                   id="btnAddPhone"
@@ -1493,7 +1504,7 @@
                   Add Phone
                 </button>
                 <button
-                  onclick="updateProduct()"
+                  onclick="phoneUpdate()"
                   id="btnUpdate"
                   type="button"
                   class="btn"
