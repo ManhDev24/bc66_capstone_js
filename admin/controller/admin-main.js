@@ -1,15 +1,15 @@
 import { product } from "../model/model.js";
 import {
-  addPhoneForm,
   getDataForm,
   renderData,
+  resetForm,
   showMessage,
 } from "./controller-admin.js";
-import { Validate } from "./validate.js";
+import { globalName } from "./controller-admin.js";
+import { isEmpty, isExitPhone, isNumber, isRightBand } from "./validate.js";
 let globalId = "";
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
-
 let fetchData = () => {
   axios
     .get(BASE_URL + adminEndpoint)
@@ -21,7 +21,7 @@ let fetchData = () => {
     });
 };
 fetchData();
-
+console.log("globalName: ", globalName);
 window.deleteProduct = (id) => {
   Swal.fire({
     title: "Are you sure?",
@@ -47,9 +47,12 @@ window.deleteProduct = (id) => {
     }
   });
 };
-
+document.getElementById("addPhoneForm").onclick = () => {
+  resetForm();
+  document.getElementById("btnUpdate").style.display = "none";
+  document.getElementById("btnAddPhone").style.display = "inline-block";
+};
 window.createProduct = () => {
-  addPhoneForm();
   let data = getDataForm();
   let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
   const newProduct = new product(
@@ -62,6 +65,26 @@ window.createProduct = () => {
     desc,
     type
   );
+  let phoneName =
+    isEmpty("#tbName", name) && isExitPhone("#tbName", globalName, name);
+  let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
+  let phoneScreen = isEmpty("#tbScreen", screen);
+  let phoneBackCam = isEmpty("#tbBackCam", backCamera);
+  let phoneFrontCam = isEmpty("#tbFrontCam", frontCamera);
+  let phoneImg = isEmpty("#tbImg", img);
+  let phoneDesc = isEmpty("#tbDesc", desc);
+  let phoneBrand = isRightBand("#tbtype", type);
+  let check =
+    phoneName &&
+    phoneNumber &&
+    phoneScreen &&
+    phoneBackCam &&
+    phoneFrontCam &&
+    phoneImg &&
+    phoneDesc &&
+    phoneBrand;
+
+  if (!check) return;
   axios
     .post(`${BASE_URL}${adminEndpoint}`, newProduct)
     .then((res) => {
