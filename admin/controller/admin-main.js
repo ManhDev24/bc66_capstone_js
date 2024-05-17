@@ -14,6 +14,7 @@ import {
   isRightBand,
 } from "./validate.js";
 let globalId = "";
+let globalObject = [];
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
 const adminEndpoint = "admin";
 let fetchData = () => {
@@ -27,6 +28,7 @@ let fetchData = () => {
     });
 };
 fetchData();
+
 window.deleteProduct = (id) => {
   Swal.fire({
     title: "Are you sure?",
@@ -162,3 +164,4 @@ window.updateProduct = () => {
       showMessage("Cập nhật sản phẩm thất bại", false);
     });
 };
+export {globalObject}

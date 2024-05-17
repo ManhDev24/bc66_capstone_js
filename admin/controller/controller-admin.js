@@ -2,7 +2,7 @@ let globalName = [];
 
 export let renderData = (data) => {
   let ContentHtml = "";
-  data.reverse().map((item) => {
+  data.reverse().forEach((item) => {
     let { id, name, price, img, desc } = item;
     let trString = `
         <tr>
@@ -70,6 +70,24 @@ export let showMessage = (message, check = true) => {
 
 export let resetForm = () => {
   document.getElementById("formPhone").reset();
+};
+
+window.searchBar = () => {
+  // Get the value from the search input field
+  let valueSearch = document.querySelector("#searchName").value.toLowerCase();
+  console.log("valueSearch:", valueSearch);
+
+  console.log("globalName: ", globalName);
+  // Filter the globalObject based on the search value
+  let searchResult = globalName.filter((item) => {
+    console.log("item: ", item);
+    return item.toLowerCase() == valueSearch;
+  });
+
+  // Log the search results
+  console.log("searchResult:", searchResult);
+
+  // Render the search results
 };
 
 export { globalName };
