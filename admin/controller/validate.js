@@ -1,13 +1,3 @@
-// messageSwitch = (isFalse, idTB, message = "") => {
-//   if (isFalse == false) {
-//     getEle(idTB).style.display = "block";
-//     getEle(idTB).innerHTML = message;
-//     return false;
-//   } else if (isFalse == true) {
-//     getEle(idTB).innerHTML = "&#8205"; //invisible (to keep distance between forms unchanged)
-//     return true;
-//   }
-// };
 export let isEmpty = (id, value) => {
   if (value.length > 0) {
     document.querySelector(id).style.display = "none";
@@ -52,6 +42,29 @@ export let isExitPhone = (id, array, value) => {
 
   return true;
 };
+export let isExitPhoneUpdate = (id, array, value) => {
+  let arrayClone = array.filter((item) => item !== value);
+  value = value.toLowerCase().replace(/\s/g, "");
+
+  let isExist = false;
+
+  for (let item of arrayClone) {
+    let lowercaseItem = item.toLowerCase().replace(/\s/g, "");
+
+    if (lowercaseItem === value) {
+      isExist = true;
+      break;
+    }
+  }
+
+  if (isExist) {
+    document.querySelector(id).innerHTML = "(*)đã tồn tại";
+    document.querySelector(id).style.display = "inline-block";
+    return false;
+  }
+
+  return true;
+};
 
 export let isRightBand = (id, value) => {
   let element = document.querySelector(id); // Tìm phần tử trong DOM
@@ -71,5 +84,3 @@ export let isRightBand = (id, value) => {
   element.style.display = "inline-block";
   return false;
 };
-
-
