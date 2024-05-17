@@ -1,3 +1,5 @@
+import { BASE_URL, adminEndpoint } from "./admin-main.js";
+
 export let isEmpty = (id, value) => {
   if (value.length > 0) {
     document.querySelector(id).style.display = "none";
@@ -42,8 +44,23 @@ export let isExitPhone = (id, array, value) => {
 
   return true;
 };
-export let isExitPhoneUpdate = (id, array, value) => {
-  let arrayClone = array.filter((item) => item !== value);
+export let isExitPhoneUpdate = (id, array, value, globalId) => {
+  axios.get(`${BASE_URL}${adminEndpoint}/${globalId}`).then((res) => {
+    console.log(res.data.name);
+    if (value == res.data.name) {
+      return true;
+    }
+    else{
+      if(array.includes(value)){
+        document.querySelector(id).innerHTML = "(*)đã tồn tại";
+        document.querySelector(id).style.display = "inline-block";
+        return false;
+      }
+      else{
+        return true;
+      }
+    }
+  });
   value = value.toLowerCase().replace(/\s/g, "");
 
   let isExist = false;
