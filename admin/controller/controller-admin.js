@@ -1,3 +1,5 @@
+let globalName = [];
+
 export let renderData = (data) => {
   let ContentHtml = "";
   data.reverse().map((item) => {
@@ -20,6 +22,7 @@ export let renderData = (data) => {
         </tr>
         `;
     ContentHtml += trString;
+    globalName.push(name);
   });
   document.getElementById("tablePhone").innerHTML = ContentHtml;
 };
@@ -65,19 +68,8 @@ export let showMessage = (message, check = true) => {
   }).showToast();
 };
 
-window.resetForm = () => {
+export let resetForm = () => {
   document.getElementById("formPhone").reset();
 };
 
-export let addPhoneForm = () => {
-  const addPhoneBtn = document.getElementById("addPhoneForm");
-  addPhoneBtn.addEventListener("click", () => {
-    console.log("hi");
-
-    resetForm();
-
-    document.getElementById("btnUpdate").style.display = "none";
-
-    document.getElementById("btnAddPhone").style.display = "inline-block";
-  });
-};
+export { globalName };
