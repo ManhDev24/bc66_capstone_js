@@ -14,9 +14,8 @@ import {
   isRightBand,
 } from "./validate.js";
 let globalId = "";
-let globalObject = [];
-const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
-const adminEndpoint = "admin";
+export const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/";
+export const adminEndpoint = "admin";
 let fetchData = () => {
   axios
     .get(BASE_URL + adminEndpoint)
@@ -164,4 +163,3 @@ window.updateProduct = () => {
       showMessage("Cập nhật sản phẩm thất bại", false);
     });
 };
-export {globalObject}

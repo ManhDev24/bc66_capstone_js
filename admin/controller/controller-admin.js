@@ -1,5 +1,5 @@
+import { BASE_URL, adminEndpoint } from "./admin-main.js";
 let globalName = [];
-
 export let renderData = (data) => {
   let ContentHtml = "";
   data.reverse().forEach((item) => {
@@ -73,21 +73,13 @@ export let resetForm = () => {
 };
 
 window.searchBar = () => {
-  // Get the value from the search input field
-  let valueSearch = document.querySelector("#searchName").value.toLowerCase();
-  console.log("valueSearch:", valueSearch);
-
-  console.log("globalName: ", globalName);
-  // Filter the globalObject based on the search value
-  let searchResult = globalName.filter((item) => {
-    console.log("item: ", item);
-    return item.toLowerCase() == valueSearch;
+  axios.get(BASE_URL + adminEndpoint).then((res) => {
+    let valueSearch = document.querySelector("#searchName").value.toLowerCase();
+    let searchValue = res.data.filter((item) => {
+      return item.name.toLowerCase().includes(valueSearch);
+    });
+    renderData(searchValue);
   });
-
-  // Log the search results
-  console.log("searchResult:", searchResult);
-
-  // Render the search results
 };
 
 export { globalName };
