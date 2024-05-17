@@ -27,7 +27,6 @@ let fetchData = () => {
     });
 };
 fetchData();
-console.log("globalName: ", globalName);
 window.deleteProduct = (id) => {
   Swal.fire({
     title: "Are you sure?",
@@ -133,10 +132,6 @@ window.updateProduct = () => {
   let { name, price, screen, backCamera, frontCamera, img, desc, type } = data;
   let phoneName =
     isEmpty("#tbName", name) && isExitPhoneUpdate("#tbName", globalName, name);
-  console.log(
-    "isExitPhoneUpdate: ",
-    isExitPhoneUpdate("#tbName", globalName, name)
-  );
 
   let phoneNumber = isEmpty("#tbPrice", price) && isNumber("#tbPrice", price);
   let phoneScreen = isEmpty("#tbScreen", screen);

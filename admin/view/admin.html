@@ -1286,7 +1286,24 @@
             </button>
           </div>
         </div>
-
+        <div class="row mb-3">
+          <div class="col">
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Loại nhân viên"
+                id="searchName"
+                oninput="search()"
+              />
+              <div style="cursor: pointer;" class="input-group-prepend">
+                <span onclick="search()" class="input-group-text" id="btnTimNV"
+                  ><i class="fa fa-search"></i
+                ></span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="table-responsive">
           <table class="table display" id="myTable">
             <thead class="">
