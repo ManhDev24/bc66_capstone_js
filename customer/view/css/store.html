@@ -3,13 +3,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cyber Phone</title>
-    <!-- toast -->
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css"
@@ -21,12 +14,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
     />
+    <link href="https://cdn.lineicons.com/2.0/LineIcons.css" rel="stylesheet" />
     <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v6.1.1/css/all.css"
     />
-    <link rel="stylesheet" href="./css/modal.css" />
-    <link rel="stylesheet" href="./css/AdminStyle.css" />
+    <link rel="stylesheet" href="./storeStyle.css" />
     <style>
       .swal2-popup.swal2-toast {
         box-sizing: border-box;
@@ -1196,7 +1189,7 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark black fixed-top mb-5">
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
         <div class="container">
           <a class="navbar-brand me-5" href="#">
             <i class="fa-lg fa-solid fa-robot me-3"></i>Cyber Phone
@@ -1234,15 +1227,15 @@
               <li class="nav-item text-center">
                 <a
                   class="nav-link active"
-                  href="/customer/view/store.html"
+                  href="/admin/view/admin.html"
                   role="button"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
                   <div>
-                    <i class="fa-solid fa-xl fa-store"></i>
+                    <i class="fa-solid fa-xl fa-user-gear"></i>
                   </div>
-                  Store
+                  Admin Portal
                 </a>
               </li>
             </ul>
@@ -1269,263 +1262,119 @@
         </div>
       </nav>
     </header>
-
-    <div class="container py-5" id="content-wrap">
-      <main role="main" class="mt-5">
-        <div class="d-flex justify-content-between mb-2 py-3 px-2 phoneBanner">
-          <div class="text-mid">
-            <h3 class="text-light">Phone Management</h3>
-            <select onchange="sortPrice(this.value)">
-              <option value="" selected>Giá</option>
-              <option value="asc">Tăng dần</option>
-              <option value="desc">Giảm dần</option>
-            </select>
-          </div>
-          <div class="text-right">
-            <button
-              type="button"
-              class="btn btn-banner"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-              id="addPhoneForm"
-            >
-              <i class="fa-solid fa-circle-plus me-2"></i> Add Phone
-            </button>
-          </div>
-        </div>
-        <div class="row mb-3">
-          <div class="col">
-            <div class="input-group">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Loại nhân viên"
-                id="searchName"
-                oninput="searchPhone()"
-              />
-              <div
-                onclick="searchPhone()"
-                style="cursor: pointer"
-                class="input-group-prepend"
+    <div class="banner-image">
+      <div class="container py-5">
+        <div class="row py-5 align-items-center">
+          <div class="col-lg-6">
+            <h5 class="display-4 my-4 font-weight-bold text-white">
+              Galaxy S22｜S22+
+            </h5>
+            <div class="d-flex star-rating mb-5">
+              <a href=""><i class="lni lni-star-filled"></i></a>
+              <a href=""><i class="lni lni-star-filled"></i></a>
+              <a href=""><i class="lni lni-star-filled"></i></a>
+              <a href=""><i class="lni lni-star"></i></a>
+              <a href=""><i class="lni lni-star"></i></a>
+            </div>
+            <p class="h5 aa mb-4 pb-3 text-white-50">
+              Get select Galaxy Buds2 or Buds Live on us with Galaxy S22+. Plus,
+              get up to $700 enhanced trade-in credit. For a limited time. Get
+              hands on with the S22 and S22+. See in AR &gt;&gt;
+            </p>
+            <h3 class="text-white mb-5">1325$</h3>
+            <div class="d-flex">
+              <a href="#" class="btn btn-lg red-btn"
+                ><i class="lni lni-play-store me-2"></i> Find out more!</a
               >
-                <span class="input-group-text" id="timSp"
-                  ><i class="fa fa-search"></i
-                ></span>
-              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 text-lg-right text-center mt-5 mt-lg-0">
+            <div class="banner-phone-image">
+              <img src="/asset/img/s22.png" alt="phone-img" />
             </div>
           </div>
         </div>
-        <div class="table-responsive">
-          <table class="table display" id="myTable">
-            <thead class="">
-              <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Photo</th>
-                <th>Discription</th>
-                <th><em class="fa fa-cog"></em> Action</th>
-              </tr>
-            </thead>
-            <tbody id="tablePhone"></tbody>
-          </table>
-        </div>
+      </div>
+    </div>
 
-        <div class="modal fade" id="exampleModal">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <header class="head-form mb-0">
-                <h3 id="header-title">Phone Management</h3>
-              </header>
-
-              <!-- Modal Header -->
-              <!-- 	<div class="modal-header">
-              <h4 class="modal-title" id="modal-title">Modal Heading</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div> -->
-
-              <!-- Modal body -->
-              <div class="modal-body">
-                <form role="form" id="formPhone">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-mobile-screen-button"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        class="form-control input-sm"
-                        placeholder="Phone name"
-                      />
-                    </div>
-                    <span class="sp-thongbao" id="tbname"></span>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-regular fa-dollar-sign"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="price"
-                        class="form-control input-sm"
-                        placeholder="Price"
-                      />
-                    </div>
-                    <span class="sp-thongbao" id="tbprice"></span>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-mobile-screen"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="email"
-                        id="screen"
-                        class="form-control input-sm"
-                        placeholder="Screen"
-                      />
-                    </div>
-
-                    <span class="sp-thongbao" id="tbscreen"></span>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-camera"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="backCam"
-                        class="form-control"
-                        placeholder="Back Camera"
-                      />
-                    </div>
-
-                    <span class="sp-thongbao" id="tbbackCam"></span>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-camera"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="frontCam"
-                        class="form-control"
-                        placeholder="Front Camera"
-                      />
-                    </div>
-
-                    <span class="sp-thongbao" id="tbfrontCam"></span>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-link"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="img"
-                        class="form-control"
-                        placeholder="Image link"
-                      />
-                    </div>
-
-                    <span class="sp-thongbao" id="tbimg"></span>
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-comment"></i
-                        ></span>
-                      </div>
-                      <input
-                        type="text"
-                        name="name"
-                        id="desc"
-                        class="form-control"
-                        placeholder="Description"
-                      />
-                    </div>
-
-                    <span class="sp-thongbao" id="tbdesc"></span>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"
-                          ><i class="fa-solid fa-signature"></i
-                        ></span>
-                      </div>
-                      <select class="form-control" name="chucvu" id="type">
-                        <option selected="" disabled="">Select brand</option>
-                        <option value="Apple">Apple</option>
-                        <option value="Android">Android</option>
-                      </select>
-                    </div>
-
-                    <span class="sp-thongbao" id="tbtype"></span>
-                  </div>
-                </form>
-              </div>
-
-              <!-- Modal footer -->
-              <div class="modal-footer" id="modal-footer">
-                <button
-                  onclick="createPhone()"
-                  type="button"
-                  class="btn"
-                  id="btnAddPhone"
-                >
-                  Add Phone
-                </button>
-                <button
-                  onclick="phoneUpdate()"
-                  id="btnUpdate"
-                  type="button"
-                  class="btn"
-                >
-                  Update Phone
-                </button>
-                <button
-                  id="btnClose"
-                  type="button"
-                  class="btn btn-danger"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
+    <div class="container" id="content-wrap">
+      <main role="main" class="pb-5 mb-5">
+        <div class="container">
+          <div class="my-5">
+            <div class="container">
+              <select
+                class="form-select w-25 mb-5"
+                id="selectList"
+                aria-label="Default select example"
+              >
+                <option value="all">All Brands</option>
+                <option value="Apple">Apple</option>
+                <option value="Android">Android</option>
+              </select>
             </div>
+            <div class="row mx-0 gy-4" id="phoneList"></div>
           </div>
         </div>
       </main>
     </div>
-
+    <div class="meh">
+      <div class="cart is-hidden">
+        <div class="cart__overlay"></div>
+        <div class="cart__contents">
+          <div class="cart__products">
+            <h2>Shopping Cart</h2>
+            <p class="microcopy">An overview of your selected products.</p>
+            <div class="products" id="cartList"></div>
+          </div>
+          <div class="cart__totals">
+            <table class="totals">
+              <tbody>
+                <tr>
+                  <th class="align-left font-normal tertiary">Subtotal</th>
+                  <td class="align-right" id="subTotal">$0</td>
+                </tr>
+                <tr>
+                  <th class="align-left font-normal tertiary">
+                    Shipping <small>(estimated)</small>
+                  </th>
+                  <td class="align-right" id="shipping">$0</td>
+                </tr>
+                <tr>
+                  <th class="align-left font-normal tertiary">
+                    Tax <small>(estimated)</small>
+                  </th>
+                  <td class="align-right" id="tax">$0</td>
+                </tr>
+                <tr>
+                  <th class="align-left">Total</th>
+                  <td class="align-right" id="priceTotal">$0</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="2" class="tertiary">
+                    <small>Estimations based on New York, United States</small>
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+            <div class="form__footer">
+              <button class="btn first js-toggle-cart">
+                Continue Shopping
+              </button>
+              <button class="btn yellow-btn" onclick="payNow()">Pay Now</button>
+              <button
+                class="btn me-5 ms-0 px-4 red-btn"
+                onclick="emptyCart()"
+                id="emptyCart"
+              >
+                <i class="fa-solid fa-trash me-2"></i> Empty Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Footer -->
     <footer
       class="text-center text-lg-start bg-dark text-light gradient-custom"
@@ -1644,19 +1493,7 @@
       <!-- Copyright -->
     </footer>
     <!-- Footer -->
-    <!-- toast -->
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
 
-    <!-- axios -->
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"
-      integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js"
       integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
@@ -1670,7 +1507,22 @@
       referrerpolicy="no-referrer"
     ></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="module" src="../controller/admin-main.js"></script>
+    <script>
+      // toggle shopping cart
+      $(".js-toggle-cart, .cart__overlay").on("click", function () {
+        $(".cart").toggleClass("is-hidden");
+      });
+      // change nav bar color when scroll
+      $(window).on("scroll", function () {
+        if (this.scrollY > 100) {
+          $("nav").addClass("black");
+        } else {
+          $("nav").removeClass("black");
+        }
+      });
+    </script>
+    <!-- <script type="module" src="../controller/main.js"></script> -->
   </body>
 </html>
