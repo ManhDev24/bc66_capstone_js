@@ -1332,16 +1332,11 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top mb-5">
       <div class="container">
-        <a class="navbar-brand me-5" href="#">
-          <i class="fa-lg fa-solid fa-robot me-3"></i>Cyber Phone
-        </a>
+        <div class="btnshopping w-full flex justify-content-between align-items-center">
+          <a class="navbar-brand me-5 justify-content-between" href="#">
+            <i class="fa-lg fa-solid fa-robot me-3"></i>Cyber Phone
+          </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-          aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav me-auto nav1">
             <li class="nav-item text-center mx-5">
               <a class="nav-link active" href="/index.html" role="button" aria-haspopup="true" aria-expanded="false">
@@ -1362,19 +1357,10 @@
               </a>
             </li>
           </ul>
-          <ul class="navbar-nav me-auto nav2">
-            <li class="nav-item text-center">
-              <a class="nav-link js-toggle-cart active" role="button" aria-haspopup="true" aria-expanded="false">
-                <div>
-                  <i class="fa-solid fa-xl fa-shopping-cart"></i>
-                  <span class="badge rounded-pill badge-notification bg-light text-dark" id="cartCount"></span>
-                </div>
-                Cart
-              </a>
-            </li>
-          </ul>
+
+          <button class="btn btn-lg red-btn btnShopping js-toggle-cart"><i class="lni lni-cart-full text-xl"></i> Giỏ
+            hàng</button>
         </div>
-      </div>
     </nav>
   </header>
   <div class="banner-image">
@@ -1415,10 +1401,11 @@
       <div class="container">
         <div class="my-5">
           <div class="container">
-            <select class="form-select w-25 mb-5" id="selectList" aria-label="Default select example">
+            <select class="form-select w-25 mb-5" id="productFilter" onchange="filterProducts()"
+              aria-label="Default select example">
               <option value="all">All Brands</option>
-              <option value="Apple">Apple</option>
-              <option value="Samsung">Samsung</option>
+              <option value="iphone">Apple</option>
+              <option value="samsung">Samsung</option>
             </select>
           </div>
           <div class="row mx-0 gy-4 gap-3" id="phoneList"></div>
@@ -1426,13 +1413,13 @@
       </div>
     </main>
   </div>
+  <!-- Shopping Cart -->
   <div class="meh">
     <div class="cart is-hidden">
       <div class="cart__overlay"></div>
       <div class="cart__contents">
         <div class="cart__products">
-          <h2>Shopping Cart</h2>
-          <p class="microcopy">An overview of your selected products.</p>
+          <p class="microcopy text-center text-2xl">Sản phẩm bạn đã thêm</p>
           <div class="products" id="cartList"></div>
         </div>
         <div class="cart__totals">
@@ -1471,9 +1458,9 @@
             <button class="btn first js-toggle-cart">
               Continue Shopping
             </button>
-            <button class="btn yellow-btn" onclick="payNow()">Pay Now</button>
+            <button class="btn yellow-btn" onclick="payNow()">Thanh toán</button>
             <button class="btn me-5 ms-0 px-4 red-btn" onclick="emptyCart()" id="emptyCart">
-              <i class="fa-solid fa-trash me-2"></i> Empty Cart
+              <i class="fa-solid fa-trash me-2"></i> Xóa
             </button>
           </div>
         </div>
@@ -1607,10 +1594,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script>
     // toggle shopping cart
-    $(".js-toggle-cart, .cart__overlay").on("click", function () {
-      $(".cart").toggleClass("is-hidden");
+    $('.js-toggle-cart, .cart__overlay').on('click', function () {
+      $('.cart').toggleClass('is-hidden');
     });
-    // change nav bar color when scroll
     $(window).on("scroll", function () {
       if (this.scrollY > 100) {
         $("nav").addClass("black");
@@ -1620,10 +1606,14 @@
     });
   </script>
 
-  <script src="./store.js"></script>
-  <script src="./css/productstyle.css"></script>
+  <script src="../model/phone.js"></script>
+  <script src="../controller/shoppingcard.js"></script>
   <script src="../controller/controller.js"></script>
+  <script src="../controller/CartItem.js"></script>
   <script src="../controller/rating.js"></script>
+  <script src="../view/css/shoppingbutton.css"></script>
+  <script src="./css/productstyle.css"></script>
+  <script src="./store.js"></script>
   <!-- <script type="module" src="../controller/main.js"></script> -->
 </body>
 

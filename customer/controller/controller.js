@@ -1,5 +1,6 @@
 
 
+// Hiện thị sản phẩm
 function renderProducts(productArr) {
   let contentHTML = "";
   productArr.forEach(function (item) {
@@ -8,7 +9,7 @@ function renderProducts(productArr) {
           class="product-image">
         <div class="product-title">
           <h4 class="text-center text-3xl font-bold">${item.name}</h4>
-          <div class="text-3xl font-monospace text-center mt-2">${item.price}$</div>
+          <div class="text-3xl font-monospace text-center mt-2" style="color: red;">${item.price}$</div>
         </div>
 
         <div class="product-content justify-content-between align-items-center mt-3 mb-3">
@@ -27,10 +28,10 @@ function renderProducts(productArr) {
           </div>
         </div>
         <!-- hover -->
-        <button class="product-info">
+        <button onclick="addToCart(${item.id})" class="product-info">
           <h2 class="product-name font-style: italic">Thêm vào giỏ hàng</h2>
           <h4 class="text-center text-2xl font-bold">${item.name}</h4>
-          <p class="product-price font-monospace">Giá: ${item.price}$</p>
+          <p class="product-price font-monospace"">Giá: ${item.price}$</p>
         </button>
       </div>`
     contentHTML += divString;
@@ -38,16 +39,27 @@ function renderProducts(productArr) {
   document.getElementById("phoneList").innerHTML = contentHTML;
 }
 
+// Lấy value từ select
+function getSelectedFilterValue() {
+  const filterSelect = document.getElementById("productFilter");
+  return filterSelect.value;
 
-{/* <div>
-              <h2>Màn Hình</h2>
-              <p>${item.screen}</p>
-            </div>
-            <div class="desc-mid">
-              <h2>Back Camera</h2>
-              <p>${item.backCamera}</p>
-            </div>
-            <div>
-              <h2>Font Camera</h2>
-              <p>${item.frontCamera}</p>
-            </div> */}
+}
+
+// Lọc sản phẩm theo loại
+function filterProductsByType(type) {
+  if (type === "all") {
+    return products;
+  } else {
+    return products.filter(product => product.type.toLowerCase() === type);
+  }
+
+}
+
+// Render sản phẩm theo loại 
+function filterProducts() {
+  let filterValue = getSelectedFilterValue();
+  let filteredProducts = filterProductsByType(filterValue);
+  renderProducts(filteredProducts);
+
+}
