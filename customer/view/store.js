@@ -1,5 +1,3 @@
-
-
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/admin";
 let productsArr = [];
 
@@ -20,8 +18,9 @@ fetchProducts();
 
 // Hiện thị sản phẩm từ sever
 function renderProducts(productArr) {
+  console.log('productArr: ', productArr);
   let contentHTML = "";
-  productArr.forEach(function (item) {
+  productArr.reverse().forEach(function (item) {
     let divString = `<div class="product-card grid-cols-4">
         <img src="${item.img}" alt="${item.name}"
           class="product-image">
