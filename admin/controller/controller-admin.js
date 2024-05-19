@@ -8,7 +8,7 @@ export let renderData = (data) => {
         <tr>
         <td>${id}</td>
         <td>${name}</td>
-        <td>${price}$</td>
+        <td>${price.toLocaleString()}$</td>
         <td>${img}</td>
         <td>${desc}</td>
         <td >

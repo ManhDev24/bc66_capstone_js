@@ -1,25 +1,26 @@
-
-
 const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/admin";
 let productsArr = [];
 
-// Gọi api lấy danh sách sản phẩm 
+// Gọi api lấy danh sách sản phẩm
 function fetchProducts() {
-  productService.getList().then(function (res) {
-    productsArr = res.data;
-    console.log('productsArr: ', productsArr);
-    renderProducts(res.data);
-  }).catch(function (err) {
-    console.log('err: ', err);
-  });
-
+  productService
+    .getList()
+    .then(function (res) {
+      productsArr = res.data;
+      console.log("productsArr: ", productsArr);
+      renderProducts(res.data);
+    })
+    .catch(function (err) {
+      console.log("err: ", err);
+    });
 }
 fetchProducts();
 
 // Hiện thị sản phẩm từ sever
 function renderProducts(productArr) {
+  console.log('productArr: ', productArr);
   let contentHTML = "";
-  productArr.forEach(function (item) {
+  productArr.reverse().forEach(function (item) {
     let divString = `<div class="product-card grid-cols-4">
         <img src="${item.img}" alt="${item.name}"
           class="product-image">
@@ -49,7 +50,7 @@ function renderProducts(productArr) {
           <h4 class="text-center text-2xl font-bold">${item.name}</h4>
           <p class="product-price font-monospace"">Giá: ${item.price.toLocaleString()}$</p>
         </button>
-      </div>`
+      </div>`;
     contentHTML += divString;
   });
   document.getElementById("phoneList").innerHTML = contentHTML;
