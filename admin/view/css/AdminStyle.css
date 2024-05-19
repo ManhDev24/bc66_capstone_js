@@ -155,7 +155,10 @@ footer {
     width: 100% !important;
   }
 }
-
+td {
+  max-width: 200px; /* Giới hạn độ rộng */
+  word-wrap: break-word; /* Cho phép ngắt dòng */
+}
 /* Dracula theme */
 :root {
   --gradient-dir1: to top;
