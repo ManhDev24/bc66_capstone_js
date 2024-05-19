@@ -122,10 +122,10 @@ let sortMinPrice = () => {
   productService
     .getList()
     .then((res) => {
-      let searchValue = res.sort((a, b) => {
+      let sortValue = res.sort((a, b) => {
         return a.price - b.price;
       });
-      renderData(searchValue);
+      renderData(sortValue);
     })
     .catch((err) => {
       console.log(err);
@@ -136,10 +136,10 @@ let sortMaxPrice = () => {
   productService
     .getList()
     .then((res) => {
-      let searchValue = res.sort((a, b) => {
+      let sortValue = res.sort((a, b) => {
         return b.price - a.price;
       });
-      renderData(searchValue);
+      renderData(sortValue);
     })
     .catch((err) => {
       console.log(err);
