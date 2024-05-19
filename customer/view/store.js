@@ -1,6 +1,6 @@
 
 
-const BASE_URL = "https://663ceb7117145c4d8c382eaf.mockapi.io/products";
+const BASE_URL = "https://6641ed403d66a67b343575f2.mockapi.io/admin";
 let productsArr = [];
 
 // Gọi api lấy danh sách sản phẩm 
