@@ -212,10 +212,10 @@ small {
 .cart__contents {
   position: fixed;
   top: 9.3%;
-  border-radius: 20px;
+  border-radius: 20px 0 0 20px;
   bottom: 0;
   left: 100%;
-  width: 585px;
+  width: 580px;
   height: 90.6%;
   overflow: auto;
   background-color: #fff;
@@ -680,12 +680,34 @@ footer {
 
 /* My css */
 
+/* @media (max-width: 1315px) {
+  #phoneList .product-card {
+    height: 540px;
+  }
+  .product-image {
+    height: 220px;
+  }
+
+}
+@media (max-width: 991.5px) {
+  .card {
+    height: 550px;
+  }
+  .card span {
+    font-size: 1.1rem;
+  }
+  #selectList {
+    width: 100% !important;
+  }
+} */
+
 /* Table Products */
+
 .product-card {
   background-color: #fff;
   position: relative;
-  width: 350px;
-  height: 650px;
+  width: 320px;
+  height: 540px;
   overflow: hidden;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -716,7 +738,7 @@ footer {
 
 .product-image {
   width: -webkit-fill-available;
-  height: 50%;
+  height: 35%;
   margin: 20px;
   object-fit: contain;
   transition: transform 0.3s;
@@ -803,6 +825,21 @@ footer {
   border-radius: 5px;
 }
 
+.btnShopping .iconCount {
+  background: white;
+  color: red;
+  position: absolute;
+  border-radius: 50%;
+  width: 25px;
+  top: -5px;
+  right: -5px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  font-size: small;
+  justify-content: center;
+  text-align: center;
+}
 
 /* shoppingCart */
 

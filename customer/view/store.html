@@ -1358,8 +1358,11 @@
             </li>
           </ul>
 
-          <button class="btn btn-lg red-btn btnShopping js-toggle-cart"><i class="lni lni-cart-full text-xl"></i> Giỏ
-            hàng</button>
+          <button class="btn btn-lg red-btn btnShopping js-toggle-cart">
+            <i class="lni lni-cart-full text-xl"></i> Giỏ
+            hàng
+            <span class="iconCount"></span>
+          </button>
         </div>
     </nav>
   </header>
@@ -1408,7 +1411,7 @@
               <option value="samsung">Samsung</option>
             </select>
           </div>
-          <div class="row mx-0 gy-4 gap-3" id="phoneList"></div>
+          <div class="row mx-0 gy-4 gap-1 justify-content-evenly" id="phoneList"></div>
         </div>
       </div>
     </main>
@@ -1443,7 +1446,7 @@
               </tr>
               <tr>
                 <th class="align-left">Total</th>
-                <td class="align-right" id="priceTotal">$0</td>
+                <td class="align-right text-3xl" style="color: green;" id="priceTotal"></td>
               </tr>
             </tbody>
             <tfoot>
@@ -1459,7 +1462,7 @@
               Continue Shopping
             </button>
             <button class="btn yellow-btn" onclick="payNow()">Thanh toán</button>
-            <button class="btn me-5 ms-0 px-4 red-btn" onclick="emptyCart()" id="emptyCart">
+            <button class="btn me-5 ms-0 px-4 red-btn" onclick="deleteAllProduts()" id="emptyCart">
               <i class="fa-solid fa-trash me-2"></i> Xóa
             </button>
           </div>
@@ -1605,14 +1608,23 @@
       }
     });
   </script>
-
+  <!-- CSS -->
+  <script src="../view/css/shoppingbutton.css"></script>
+  <script src="./css/productstyle.css"></script>
+  <!-- Alert cdn -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Model -->
   <script src="../model/phone.js"></script>
+  <script src="../model/./cart.js"></script>
+  <!-- Services -->
+  <script src="../services/services.js"></script>
+  <!-- Controller -->
+  <script src="../controller/quatity.js"></script>
   <script src="../controller/shoppingcard.js"></script>
   <script src="../controller/controller.js"></script>
   <script src="../controller/CartItem.js"></script>
   <script src="../controller/rating.js"></script>
-  <script src="../view/css/shoppingbutton.css"></script>
-  <script src="./css/productstyle.css"></script>
+  <!-- Main JS -->
   <script src="./store.js"></script>
   <!-- <script type="module" src="../controller/main.js"></script> -->
 </body>

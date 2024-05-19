@@ -1,6 +1,6 @@
 
 
-function Phone(id, name, price, screen, backCamera, frontCamera, img, desc, type) {
+function Phone(id, name, price, screen, backCamera, frontCamera, img, desc, type, quantity) {
     this.id = id;
     this.name = name;
     this.price = price;
@@ -10,5 +10,5 @@ function Phone(id, name, price, screen, backCamera, frontCamera, img, desc, type
     this.img = img;
     this.desc = desc;
     this.type = type;
+    this.quantity = quantity;
 }
-console.log('Phone: ', Phone);
